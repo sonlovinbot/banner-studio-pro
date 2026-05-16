@@ -249,7 +249,7 @@ function BannerStudio() {
               description="Mẫu thiết kế tham khảo về bố cục, màu sắc"
               files={inspiration}
               onChange={setInspiration}
-              max={3}
+              max={10}
             />
 
             <ImageUploader
@@ -257,7 +257,7 @@ function BannerStudio() {
               description="Sản phẩm sẽ xuất hiện trong banner"
               files={product}
               onChange={setProduct}
-              max={3}
+              max={10}
             />
           </div>
 
@@ -382,7 +382,7 @@ function BannerStudio() {
                 </div>
               )}
             </div>
-            <ResultsGrid slots={slots} />
+            <ResultsGrid slots={slots} onRegenerate={handleRegenerate} />
           </div>
         </section>
       </main>
