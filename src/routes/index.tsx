@@ -77,7 +77,8 @@ function BannerStudio() {
         inspiration.map((f) => uploadImage(apiKey, f)),
       );
       const prodUrls = await Promise.all(product.map((f) => uploadImage(apiKey, f)));
-      const allUrls = [...inspUrls, ...prodUrls].slice(0, 5);
+      const allUrls = [...inspUrls, ...prodUrls].slice(0, 10);
+      setUploadedUrls(allUrls);
 
       const results: { style: string; url: string }[] = [];
 
