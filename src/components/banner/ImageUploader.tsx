@@ -9,7 +9,7 @@ interface Props {
   max?: number;
 }
 
-export function ImageUploader({ label, description, files, onChange, max = 5 }: Props) {
+export function ImageUploader({ label, description, files, onChange, max = 10 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [previews, setPreviews] = useState<string[]>([]);
 
@@ -62,7 +62,7 @@ export function ImageUploader({ label, description, files, onChange, max = 5 }: 
         />
       </div>
       {previews.length > 0 && (
-        <div className="grid grid-cols-5 gap-2">
+        <div className="grid grid-cols-5 gap-1.5">
           {previews.map((src, i) => (
             <div
               key={i}
