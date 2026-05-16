@@ -22,9 +22,9 @@ const labels: Record<ResultSlot["status"], string> = {
 };
 
 export function ResultsGrid({ slots }: Props) {
-  const display = slots.length
+  const display: ResultSlot[] = slots.length
     ? slots
-    : BANNER_STYLES.map((s) => ({ style: s.name, status: "idle" as const }));
+    : BANNER_STYLES.map((s) => ({ style: s.name, status: "idle" }));
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
