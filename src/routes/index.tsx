@@ -43,6 +43,7 @@ function BannerStudio() {
   const [resolution, setResolution] = useState<Resolution>("1k");
   const [slots, setSlots] = useState<ResultSlot[]>([]);
   const [running, setRunning] = useState(false);
+  const [uploadedUrls, setUploadedUrls] = useState<string[]>([]);
 
   const canRun = useMemo(
     () => apiKey && (inspiration.length > 0 || product.length > 0) && !running,
