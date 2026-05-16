@@ -137,6 +137,59 @@ function BannerStudio() {
     }
   }
 
+  async function handleRegenerate(index: number, customPrompt: string) {
+    if (!apiKey) {
+      toast.error("Vui lòng nhập API key Coachio");
+      return;
+    }
+    if (uploadedUrls.length === 0) {
+      toast.error("Hãy chạy 'Tạo 5 banner' trước để tải ảnh lên");
+      return;
+    }
+    const style = BANNER_STYLES[index];
+    if (!style) return;
+    updateSlot(index, { status: "submitting", url: undefined, message: undefined });
+    try {
+      const combinedPrompt = [userPrompt, customPrompt].filter(Boolean).join(". ");
+      const prompt = buildPrompt({
+        brand,
+        userPrompt: combinedPrompt,
+        styleModifier: style.modifier,
+        hasInspiration: inspiration.length > 0,
+        hasProduct: product.length > 0,
+      });
+      const taskId = await submitTask({
+        apiKey,
+        prompt,
+        aspectRatio: aspect,
+        resolution,
+        imageUrls: uploadedUrls,
+      });
+      updateSlot(index, { status: "processing" });
+      const urls = await pollUntilDone(apiKey, taskId);
+      const url = urls[0];
+      if (!url) throw new Error("Không có ảnh trả về");
+      updateSlot(index, { status: "done", url });
+      const item: HistoryItem = {
+        id: crypto.randomUUID(),
+        createdAt: Date.now(),
+        brand,
+        prompt: combinedPrompt,
+        aspectRatio: aspect,
+        resolution,
+        results: [{ style: style.name, url }],
+      };
+      add(item);
+      toast.success(`Đã tạo lại "${style.name}"`);
+    } catch (err) {
+      updateSlot(index, {
+        status: "error",
+        message: err instanceof Error ? err.message : "Lỗi",
+      });
+      toast.error(err instanceof Error ? err.message : "Lỗi");
+    }
+  }
+
   function loadFromHistory(item: HistoryItem) {
     setBrand(item.brand);
     setUserPrompt(item.prompt);
