@@ -269,10 +269,12 @@ function BannerStudio() {
 
             <div className="space-y-1.5">
               <label className="text-xs font-medium">Thông tin Brand</label>
-              <Input
+              <Textarea
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
-                placeholder="Tên brand, slogan, USP..."
+                placeholder="Tên brand, slogan, USP, mô tả sản phẩm, đối tượng khách hàng, tone giọng..."
+                rows={5}
+                className="resize-y min-h-[120px]"
               />
             </div>
 
