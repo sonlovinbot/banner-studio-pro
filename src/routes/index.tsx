@@ -4,7 +4,7 @@ import { Sparkles, Wand2, Loader2, Image as ImgIcon, Building2 } from "lucide-re
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+
 import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
@@ -43,6 +43,7 @@ function BannerStudio() {
   const [resolution, setResolution] = useState<Resolution>("1k");
   const [slots, setSlots] = useState<ResultSlot[]>([]);
   const [running, setRunning] = useState(false);
+  const [uploadedUrls, setUploadedUrls] = useState<string[]>([]);
 
   const canRun = useMemo(
     () => apiKey && (inspiration.length > 0 || product.length > 0) && !running,
@@ -76,7 +77,8 @@ function BannerStudio() {
         inspiration.map((f) => uploadImage(apiKey, f)),
       );
       const prodUrls = await Promise.all(product.map((f) => uploadImage(apiKey, f)));
-      const allUrls = [...inspUrls, ...prodUrls].slice(0, 5);
+      const allUrls = [...inspUrls, ...prodUrls].slice(0, 10);
+      setUploadedUrls(allUrls);
 
       const results: { style: string; url: string }[] = [];
 
@@ -132,6 +134,59 @@ function BannerStudio() {
       toast.error(e instanceof Error ? e.message : "Lỗi không xác định");
     } finally {
       setRunning(false);
+    }
+  }
+
+  async function handleRegenerate(index: number, customPrompt: string) {
+    if (!apiKey) {
+      toast.error("Vui lòng nhập API key Coachio");
+      return;
+    }
+    if (uploadedUrls.length === 0) {
+      toast.error("Hãy chạy 'Tạo 5 banner' trước để tải ảnh lên");
+      return;
+    }
+    const style = BANNER_STYLES[index];
+    if (!style) return;
+    updateSlot(index, { status: "submitting", url: undefined, message: undefined });
+    try {
+      const combinedPrompt = [userPrompt, customPrompt].filter(Boolean).join(". ");
+      const prompt = buildPrompt({
+        brand,
+        userPrompt: combinedPrompt,
+        styleModifier: style.modifier,
+        hasInspiration: inspiration.length > 0,
+        hasProduct: product.length > 0,
+      });
+      const taskId = await submitTask({
+        apiKey,
+        prompt,
+        aspectRatio: aspect,
+        resolution,
+        imageUrls: uploadedUrls,
+      });
+      updateSlot(index, { status: "processing" });
+      const urls = await pollUntilDone(apiKey, taskId);
+      const url = urls[0];
+      if (!url) throw new Error("Không có ảnh trả về");
+      updateSlot(index, { status: "done", url });
+      const item: HistoryItem = {
+        id: crypto.randomUUID(),
+        createdAt: Date.now(),
+        brand,
+        prompt: combinedPrompt,
+        aspectRatio: aspect,
+        resolution,
+        results: [{ style: style.name, url }],
+      };
+      add(item);
+      toast.success(`Đã tạo lại "${style.name}"`);
+    } catch (err) {
+      updateSlot(index, {
+        status: "error",
+        message: err instanceof Error ? err.message : "Lỗi",
+      });
+      toast.error(err instanceof Error ? err.message : "Lỗi");
     }
   }
 
@@ -194,7 +249,7 @@ function BannerStudio() {
               description="Mẫu thiết kế tham khảo về bố cục, màu sắc"
               files={inspiration}
               onChange={setInspiration}
-              max={3}
+              max={10}
             />
 
             <ImageUploader
@@ -202,7 +257,7 @@ function BannerStudio() {
               description="Sản phẩm sẽ xuất hiện trong banner"
               files={product}
               onChange={setProduct}
-              max={3}
+              max={10}
             />
           </div>
 
@@ -214,10 +269,12 @@ function BannerStudio() {
 
             <div className="space-y-1.5">
               <label className="text-xs font-medium">Thông tin Brand</label>
-              <Input
+              <Textarea
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
-                placeholder="Tên brand, slogan, USP..."
+                placeholder="Tên brand, slogan, USP, mô tả sản phẩm, đối tượng khách hàng, tone giọng..."
+                rows={5}
+                className="resize-y min-h-[120px]"
               />
             </div>
 
@@ -325,7 +382,7 @@ function BannerStudio() {
                 </div>
               )}
             </div>
-            <ResultsGrid slots={slots} />
+            <ResultsGrid slots={slots} onRegenerate={handleRegenerate} />
           </div>
         </section>
       </main>
