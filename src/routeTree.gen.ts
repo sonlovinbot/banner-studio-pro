@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as StudioRouteImport } from './routes/studio'
 import { Route as HistoryRouteImport } from './routes/history'
+import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as ApiConfigRouteImport } from './routes/api-config'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -22,6 +23,11 @@ const StudioRoute = StudioRouteImport.update({
 const HistoryRoute = HistoryRouteImport.update({
   id: '/history',
   path: '/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssistantRoute = AssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiConfigRoute = ApiConfigRouteImport.update({
@@ -38,12 +44,14 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api-config': typeof ApiConfigRoute
+  '/assistant': typeof AssistantRoute
   '/history': typeof HistoryRoute
   '/studio': typeof StudioRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api-config': typeof ApiConfigRoute
+  '/assistant': typeof AssistantRoute
   '/history': typeof HistoryRoute
   '/studio': typeof StudioRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api-config': typeof ApiConfigRoute
+  '/assistant': typeof AssistantRoute
   '/history': typeof HistoryRoute
   '/studio': typeof StudioRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api-config' | '/history' | '/studio'
+  fullPaths: '/' | '/api-config' | '/assistant' | '/history' | '/studio'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api-config' | '/history' | '/studio'
-  id: '__root__' | '/' | '/api-config' | '/history' | '/studio'
+  to: '/' | '/api-config' | '/assistant' | '/history' | '/studio'
+  id: '__root__' | '/' | '/api-config' | '/assistant' | '/history' | '/studio'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiConfigRoute: typeof ApiConfigRoute
+  AssistantRoute: typeof AssistantRoute
   HistoryRoute: typeof HistoryRoute
   StudioRoute: typeof StudioRoute
 }
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/history'
       fullPath: '/history'
       preLoaderRoute: typeof HistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assistant': {
+      id: '/assistant'
+      path: '/assistant'
+      fullPath: '/assistant'
+      preLoaderRoute: typeof AssistantRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api-config': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiConfigRoute: ApiConfigRoute,
+  AssistantRoute: AssistantRoute,
   HistoryRoute: HistoryRoute,
   StudioRoute: StudioRoute,
 }
