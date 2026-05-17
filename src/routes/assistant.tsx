@@ -7,6 +7,26 @@ import { Textarea } from "@/components/ui/textarea";
 import { useApiKey } from "@/lib/history";
 import { streamChat, fileToDataUrl, type ChatMessage, type ContentPart, CHAT_MODEL } from "@/lib/coachio-chat";
 import { toast } from "sonner";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
+function MarkdownBubble({ text }: { text: string }) {
+  return (
+    <div className="prose prose-sm dark:prose-invert max-w-none leading-relaxed
+      prose-headings:mt-3 prose-headings:mb-2 prose-headings:font-semibold
+      prose-h1:text-base prose-h2:text-[15px] prose-h3:text-sm
+      prose-p:my-2 prose-p:leading-relaxed
+      prose-ul:my-2 prose-ol:my-2 prose-li:my-0.5 prose-li:marker:text-primary
+      prose-strong:text-foreground prose-strong:font-semibold
+      prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+      prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-[0.85em] prose-code:before:content-none prose-code:after:content-none
+      prose-pre:bg-foreground/5 prose-pre:border prose-pre:border-border prose-pre:rounded-lg
+      prose-blockquote:border-l-primary/50 prose-blockquote:text-muted-foreground prose-blockquote:not-italic
+      prose-hr:my-3 prose-table:text-xs">
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>
+    </div>
+  );
+}
 
 export const Route = createFileRoute("/assistant")({
   component: AssistantPage,
