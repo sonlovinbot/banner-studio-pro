@@ -25,7 +25,6 @@ export async function uploadImage(apiKey: string, file: File): Promise<string> {
 }
 
 export async function submitTask(p: SubmitParams): Promise<string> {
-  // auto only allows 1k
   const resolution = p.aspectRatio === "auto" ? "1k" : p.resolution;
   const body: Record<string, unknown> = {
     task_type: "image",
@@ -88,4 +87,21 @@ export async function pollUntilDone(
     await new Promise((r) => setTimeout(r, 3000));
   }
   throw new Error("Task timed out");
+}
+
+/** Verify the API key is valid by hitting a protected endpoint. */
+export async function testApiKey(apiKey: string): Promise<{ ok: boolean; message: string }> {
+  if (!apiKey.trim()) return { ok: false, message: "Chưa nhập API key" };
+  try {
+    // Use a random invalid task id: 401/403 = bad key, 404 = key works.
+    const res = await fetch(`${BASE}/task/status/__ping_${Date.now()}`, {
+      headers: { "X-API-Key": apiKey },
+    });
+    if (res.status === 401 || res.status === 403) {
+      return { ok: false, message: `API key không hợp lệ (${res.status})` };
+    }
+    return { ok: true, message: "API key hợp lệ ✓" };
+  } catch (e) {
+    return { ok: false, message: e instanceof Error ? e.message : "Network error" };
+  }
 }
