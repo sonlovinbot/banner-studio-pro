@@ -1,10 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Wand2, Image as ImgIcon, Key, History, Sparkles } from "lucide-react";
+import { Wand2, Image as ImgIcon, Key, History, Sparkles, Bot } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
 
 const NAV = [
   { to: "/", label: "Tổng quan", icon: Sparkles, exact: true },
   { to: "/studio", label: "Tạo Banner", icon: ImgIcon },
+  { to: "/assistant", label: "Trợ lý AI", icon: Bot },
   { to: "/api-config", label: "Cấu hình API", icon: Key },
   { to: "/history", label: "Lịch sử", icon: History },
 ];
