@@ -263,15 +263,26 @@ function AssistantPage() {
                 {(m.text || m.role === "assistant") && (
                   <div
                     className={
-                      "rounded-2xl px-4 py-2.5 text-sm whitespace-pre-wrap leading-relaxed " +
-                      (m.role === "user"
-                        ? "bg-primary text-primary-foreground"
+                      m.role === "user"
+                        ? "rounded-2xl px-4 py-2.5 text-sm whitespace-pre-wrap leading-relaxed bg-primary text-primary-foreground"
                         : m.error
-                          ? "bg-destructive/10 text-destructive border border-destructive/30"
-                          : "bg-muted text-foreground")
+                          ? "rounded-2xl px-4 py-2.5 text-sm leading-relaxed bg-destructive/10 text-destructive border border-destructive/30"
+                          : "rounded-2xl px-4 py-3 text-sm bg-muted/60 border border-border/60 text-foreground"
                     }
                   >
-                    {m.text || (streaming ? "…" : "")}
+                    {m.role === "assistant" && !m.error ? (
+                      m.text ? (
+                        <MarkdownBubble text={m.text} />
+                      ) : (
+                        <span className="inline-flex gap-1 items-center text-muted-foreground">
+                          <span className="size-1.5 rounded-full bg-current animate-pulse" />
+                          <span className="size-1.5 rounded-full bg-current animate-pulse [animation-delay:120ms]" />
+                          <span className="size-1.5 rounded-full bg-current animate-pulse [animation-delay:240ms]" />
+                        </span>
+                      )
+                    ) : (
+                      m.text
+                    )}
                   </div>
                 )}
               </div>
