@@ -23,7 +23,9 @@ function Dashboard() {
     {
       to: "/api-config",
       title: "Cấu hình API",
-      desc: apiKey ? "API key đã được lưu. Bạn có thể kiểm tra hoặc cập nhật." : "Chưa có API key. Hãy thêm để bắt đầu.",
+      desc: apiKey
+        ? "API key đã được lưu. Bạn có thể kiểm tra hoặc cập nhật."
+        : "Chưa có API key. Hãy thêm để bắt đầu.",
       icon: Key,
       cta: apiKey ? "Quản lý" : "Thêm API key",
       accent: undefined,
@@ -55,7 +57,10 @@ function Dashboard() {
             >
               <div
                 className="size-12 rounded-xl flex items-center justify-center text-white mb-4"
-                style={{ background: c.accent ?? "linear-gradient(135deg, oklch(0.6 0.05 280), oklch(0.4 0.05 280))" }}
+                style={{
+                  background:
+                    c.accent ?? "linear-gradient(135deg, oklch(0.6 0.05 280), oklch(0.4 0.05 280))",
+                }}
               >
                 <Icon className="size-6" />
               </div>

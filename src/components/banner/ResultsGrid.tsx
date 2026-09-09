@@ -36,9 +36,7 @@ export function ResultsGrid({ slots, onRegenerate }: Props) {
         <ResultCard
           key={i}
           slot={slot}
-          onRegenerate={
-            onRegenerate ? (p) => onRegenerate(i, p) : undefined
-          }
+          onRegenerate={onRegenerate ? (p) => onRegenerate(i, p) : undefined}
         />
       ))}
     </div>
@@ -54,9 +52,7 @@ function ResultCard({
 }) {
   const [prompt, setPrompt] = useState("");
   const busy =
-    slot.status === "uploading" ||
-    slot.status === "submitting" ||
-    slot.status === "processing";
+    slot.status === "uploading" || slot.status === "submitting" || slot.status === "processing";
 
   return (
     <div
@@ -102,10 +98,10 @@ function ResultCard({
             (slot.status === "done"
               ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400"
               : slot.status === "error"
-              ? "bg-destructive/15 text-destructive"
-              : slot.status === "idle"
-              ? "bg-muted text-muted-foreground"
-              : "bg-primary/15 text-primary")
+                ? "bg-destructive/15 text-destructive"
+                : slot.status === "idle"
+                  ? "bg-muted text-muted-foreground"
+                  : "bg-primary/15 text-primary")
           }
         >
           {labels[slot.status]}

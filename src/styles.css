@@ -66,7 +66,12 @@
   --radius: 0.875rem;
   --background: oklch(0.985 0.005 280);
   --foreground: oklch(0.18 0.03 280);
-  --gradient-brand: linear-gradient(135deg, oklch(0.65 0.22 350), oklch(0.55 0.24 290) 50%, oklch(0.6 0.22 230));
+  --gradient-brand: linear-gradient(
+    135deg,
+    oklch(0.65 0.22 350),
+    oklch(0.55 0.24 290) 50%,
+    oklch(0.6 0.22 230)
+  );
   --gradient-surface: linear-gradient(180deg, oklch(0.99 0.005 320), oklch(0.96 0.015 300));
   --shadow-soft: 0 10px 40px -10px oklch(0.5 0.15 300 / 0.18);
   --shadow-elegant: 0 20px 60px -20px oklch(0.4 0.2 300 / 0.25);

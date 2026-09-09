@@ -86,15 +86,33 @@ function HistoryPage() {
       )}
 
       {selected && (
-        <DetailModal item={selected} onClose={() => setSelected(null)} onDelete={() => { remove(selected.id); setSelected(null); }} />
+        <DetailModal
+          item={selected}
+          onClose={() => setSelected(null)}
+          onDelete={() => {
+            remove(selected.id);
+            setSelected(null);
+          }}
+        />
       )}
     </DashLayout>
   );
 }
 
-function DetailModal({ item, onClose, onDelete }: { item: HistoryItem; onClose: () => void; onDelete: () => void }) {
+function DetailModal({
+  item,
+  onClose,
+  onDelete,
+}: {
+  item: HistoryItem;
+  onClose: () => void;
+  onDelete: () => void;
+}) {
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+      onClick={onClose}
+    >
       <div
         className="bg-background rounded-2xl border border-border max-w-5xl w-full max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
@@ -127,11 +145,15 @@ function DetailModal({ item, onClose, onDelete }: { item: HistoryItem; onClose: 
               <div className="space-y-2 text-sm">
                 <div>
                   <span className="text-xs text-muted-foreground">Brand:</span>
-                  <p className="whitespace-pre-wrap">{item.brand || <em className="text-muted-foreground">—</em>}</p>
+                  <p className="whitespace-pre-wrap">
+                    {item.brand || <em className="text-muted-foreground">—</em>}
+                  </p>
                 </div>
                 <div>
                   <span className="text-xs text-muted-foreground">Prompt:</span>
-                  <p className="whitespace-pre-wrap">{item.prompt || <em className="text-muted-foreground">—</em>}</p>
+                  <p className="whitespace-pre-wrap">
+                    {item.prompt || <em className="text-muted-foreground">—</em>}
+                  </p>
                 </div>
               </div>
             </div>
@@ -157,10 +179,15 @@ function DetailModal({ item, onClose, onDelete }: { item: HistoryItem; onClose: 
               <h4 className="text-sm font-bold">Ảnh đầu vào</h4>
               {item.inspirationThumbs.length > 0 && (
                 <div>
-                  <p className="text-xs text-muted-foreground mb-2">Cảm hứng ({item.inspirationThumbs.length})</p>
+                  <p className="text-xs text-muted-foreground mb-2">
+                    Cảm hứng ({item.inspirationThumbs.length})
+                  </p>
                   <div className="grid grid-cols-5 md:grid-cols-8 gap-2">
                     {item.inspirationThumbs.map((src, i) => (
-                      <div key={i} className="aspect-square rounded-lg border border-border overflow-hidden bg-muted">
+                      <div
+                        key={i}
+                        className="aspect-square rounded-lg border border-border overflow-hidden bg-muted"
+                      >
                         <img src={src} alt="" className="w-full h-full object-cover" />
                       </div>
                     ))}
@@ -169,10 +196,15 @@ function DetailModal({ item, onClose, onDelete }: { item: HistoryItem; onClose: 
               )}
               {item.productThumbs.length > 0 && (
                 <div>
-                  <p className="text-xs text-muted-foreground mb-2">Sản phẩm ({item.productThumbs.length})</p>
+                  <p className="text-xs text-muted-foreground mb-2">
+                    Sản phẩm ({item.productThumbs.length})
+                  </p>
                   <div className="grid grid-cols-5 md:grid-cols-8 gap-2">
                     {item.productThumbs.map((src, i) => (
-                      <div key={i} className="aspect-square rounded-lg border border-border overflow-hidden bg-muted">
+                      <div
+                        key={i}
+                        className="aspect-square rounded-lg border border-border overflow-hidden bg-muted"
+                      >
                         <img src={src} alt="" className="w-full h-full object-cover" />
                       </div>
                     ))}
@@ -187,7 +219,10 @@ function DetailModal({ item, onClose, onDelete }: { item: HistoryItem; onClose: 
             <h4 className="text-sm font-bold mb-3">Kết quả ({item.results.length})</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {item.results.map((r, i) => (
-                <div key={i} className="rounded-xl border border-border bg-card overflow-hidden group">
+                <div
+                  key={i}
+                  className="rounded-xl border border-border bg-card overflow-hidden group"
+                >
                   <div className="aspect-square bg-muted relative">
                     <img src={r.url} alt={r.style} className="w-full h-full object-cover" />
                     <a

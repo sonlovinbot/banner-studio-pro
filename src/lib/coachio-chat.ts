@@ -48,7 +48,8 @@ export async function streamChat(opts: StreamOpts): Promise<void> {
     if (res.status === 401) throw new Error("API key không hợp lệ (401).");
     if (res.status === 402) throw new Error("Tài khoản Coachio không đủ credits (402).");
     if (res.status === 429) throw new Error("Quá nhiều yêu cầu, vui lòng thử lại (429).");
-    if (res.status === 400 && /too large/i.test(text)) throw new Error("Request quá lớn — hãy giảm kích thước media.");
+    if (res.status === 400 && /too large/i.test(text))
+      throw new Error("Request quá lớn — hãy giảm kích thước media.");
     throw new Error(`Chat failed (${res.status}): ${text.slice(0, 200)}`);
   }
 

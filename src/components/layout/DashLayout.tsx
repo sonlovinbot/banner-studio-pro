@@ -76,9 +76,7 @@ export function DashLayout({
         <header className="h-16 px-8 flex items-center border-b border-border bg-background/60 backdrop-blur-xl sticky top-0 z-10">
           <div>
             <h2 className="text-base font-bold">{title}</h2>
-            {description && (
-              <p className="text-xs text-muted-foreground">{description}</p>
-            )}
+            {description && <p className="text-xs text-muted-foreground">{description}</p>}
           </div>
         </header>
         <div className="p-8">{children}</div>

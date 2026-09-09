@@ -35,9 +35,7 @@ export function buildPrompt(opts: {
   hasProduct: boolean;
 }) {
   const parts: string[] = [];
-  parts.push(
-    "Create a professional marketing banner / poster design.",
-  );
+  parts.push("Create a professional marketing banner / poster design.");
   if (opts.hasInspiration && opts.hasProduct) {
     parts.push(
       "Use the FIRST reference image(s) as design/style inspiration (layout, composition, typography vibe, color mood). Use the LAST reference image(s) as the actual PRODUCT to feature prominently in the banner — keep the product accurate and recognizable.",

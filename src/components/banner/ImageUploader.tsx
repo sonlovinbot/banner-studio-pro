@@ -30,9 +30,7 @@ export function ImageUploader({ label, description, files, onChange, max = 10 }:
     <div className="space-y-2">
       <div>
         <label className="text-sm font-semibold text-foreground">{label}</label>
-        {description && (
-          <p className="text-xs text-muted-foreground mt-0.5">{description}</p>
-        )}
+        {description && <p className="text-xs text-muted-foreground mt-0.5">{description}</p>}
       </div>
       <div
         onClick={() => inputRef.current?.click()}
@@ -46,9 +44,7 @@ export function ImageUploader({ label, description, files, onChange, max = 10 }:
         <div className="size-10 rounded-full bg-primary/10 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
           <Upload className="size-5 text-primary" />
         </div>
-        <p className="text-sm font-medium text-foreground">
-          Kéo thả hoặc nhấn để tải lên
-        </p>
+        <p className="text-sm font-medium text-foreground">Kéo thả hoặc nhấn để tải lên</p>
         <p className="text-xs text-muted-foreground mt-0.5">
           Tối đa {max} ảnh · JPG, PNG, WebP · ≤ 15MB
         </p>

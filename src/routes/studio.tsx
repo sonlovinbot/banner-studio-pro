@@ -22,12 +22,7 @@ import {
 } from "@/components/ui/select";
 import { ImageUploader } from "@/components/banner/ImageUploader";
 import { ResultsGrid, type ResultSlot } from "@/components/banner/ResultsGrid";
-import {
-  useApiKey,
-  useHistory,
-  fileToThumbnail,
-  type HistoryItem,
-} from "@/lib/history";
+import { useApiKey, useHistory, fileToThumbnail, type HistoryItem } from "@/lib/history";
 import { BANNER_STYLES, buildPrompt } from "@/lib/banner-styles";
 import {
   uploadImage,
@@ -145,7 +140,9 @@ function Studio() {
           results,
         };
         add(item);
-        toast.success(`Đã tạo ${results.length}/${BANNER_STYLES.length} banner — đã lưu vào lịch sử`);
+        toast.success(
+          `Đã tạo ${results.length}/${BANNER_STYLES.length} banner — đã lưu vào lịch sử`,
+        );
       } else {
         toast.error("Tạo banner thất bại");
       }
@@ -239,7 +236,10 @@ function Studio() {
           <h1 className="font-bold text-sm">Banner Studio</h1>
           <div className="ml-auto flex items-center gap-3 text-xs text-muted-foreground">
             {!apiKey && (
-              <Link to="/api-config" className="flex items-center gap-1 text-destructive hover:underline">
+              <Link
+                to="/api-config"
+                className="flex items-center gap-1 text-destructive hover:underline"
+              >
                 <Key className="size-3.5" /> Chưa có API key — bấm để thêm
               </Link>
             )}

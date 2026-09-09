@@ -45,7 +45,10 @@ function ApiConfigPage() {
       description="Quản lý API key Coachio. Khoá được lưu cục bộ trong trình duyệt của bạn."
     >
       <div className="max-w-2xl space-y-6">
-        <div className="rounded-2xl border border-border bg-card p-6 space-y-4" style={{ boxShadow: "var(--shadow-soft)" }}>
+        <div
+          className="rounded-2xl border border-border bg-card p-6 space-y-4"
+          style={{ boxShadow: "var(--shadow-soft)" }}
+        >
           <div className="flex items-center gap-2">
             <Key className="size-4 text-primary" />
             <h3 className="text-sm font-bold">Coachio API Key</h3>

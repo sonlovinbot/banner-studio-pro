@@ -5,14 +5,21 @@ import { DashLayout } from "@/components/layout/DashLayout";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useApiKey } from "@/lib/history";
-import { streamChat, fileToDataUrl, type ChatMessage, type ContentPart, CHAT_MODEL } from "@/lib/coachio-chat";
+import {
+  streamChat,
+  fileToDataUrl,
+  type ChatMessage,
+  type ContentPart,
+  CHAT_MODEL,
+} from "@/lib/coachio-chat";
 import { toast } from "sonner";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 function MarkdownBubble({ text }: { text: string }) {
   return (
-    <div className="prose prose-sm dark:prose-invert max-w-none leading-relaxed
+    <div
+      className="prose prose-sm dark:prose-invert max-w-none leading-relaxed
       prose-headings:mt-3 prose-headings:mb-2 prose-headings:font-semibold
       prose-h1:text-base prose-h2:text-[15px] prose-h3:text-sm
       prose-p:my-2 prose-p:leading-relaxed
@@ -22,7 +29,8 @@ function MarkdownBubble({ text }: { text: string }) {
       prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-[0.85em] prose-code:before:content-none prose-code:after:content-none
       prose-pre:bg-foreground/5 prose-pre:border prose-pre:border-border prose-pre:rounded-lg
       prose-blockquote:border-l-primary/50 prose-blockquote:text-muted-foreground prose-blockquote:not-italic
-      prose-hr:my-3 prose-table:text-xs">
+      prose-hr:my-3 prose-table:text-xs"
+    >
       <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>
     </div>
   );
@@ -301,7 +309,11 @@ function AssistantPage() {
             <div className="flex gap-2 mb-2 flex-wrap">
               {images.map((src, i) => (
                 <div key={i} className="relative">
-                  <img src={src} alt="" className="size-16 rounded-lg object-cover border border-border" />
+                  <img
+                    src={src}
+                    alt=""
+                    className="size-16 rounded-lg object-cover border border-border"
+                  />
                   <button
                     onClick={() => setImages((p) => p.filter((_, j) => j !== i))}
                     className="absolute -top-1.5 -right-1.5 size-5 rounded-full bg-foreground text-background flex items-center justify-center shadow"
