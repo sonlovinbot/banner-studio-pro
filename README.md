@@ -43,6 +43,8 @@ Vào **Cấu hình API**, nhập Coachio API key rồi chọn **Kiểm tra kết
 
 ```bash
 bun run dev       # Chạy môi trường phát triển
+bun run test      # Chạy kiểm thử tự động
+bun run typecheck # Kiểm tra kiểu TypeScript
 bun run build     # Build bản production
 bun run preview   # Xem thử bản build
 bun run lint      # Kiểm tra ESLint và Prettier

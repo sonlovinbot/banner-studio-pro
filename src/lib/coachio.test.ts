@@ -9,7 +9,9 @@ afterEach(() => {
 });
 
 function respondWith(status: number) {
-  globalThis.fetch = async () => new Response(null, { status });
+  globalThis.fetch = Object.assign(async () => new Response(null, { status }), {
+    preconnect: originalFetch.preconnect,
+  });
 }
 
 describe("testApiKey", () => {
