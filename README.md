@@ -10,7 +10,7 @@
 - Tạo lại từng kết quả với yêu cầu bổ sung.
 - Trợ lý AI hỗ trợ nội dung và ý tưởng thiết kế.
 - Lưu API key và tối đa 50 phiên làm việc trong `localStorage`.
-- Giao diện tiếng Việt.
+- Giao diện chính bằng tiếng Việt.
 
 ## Công nghệ
 
@@ -51,8 +51,8 @@ bun run format    # Định dạng mã nguồn
 
 ## Dữ liệu và bảo mật
 
-- API key và lịch sử được lưu trong `localStorage` của trình duyệt.
-- Ảnh được gửi đến Coachio API khi người dùng yêu cầu tạo banner hoặc sử dụng trợ lý AI.
+- API key và lịch sử được lưu lâu dài trong `localStorage`, có thể được JavaScript cùng origin đọc. Chỉ sử dụng ứng dụng trên thiết bị và trình duyệt đáng tin cậy; xóa dữ liệu trình duyệt hoặc thu hồi API key sau khi dùng trên thiết bị dùng chung.
+- API key, ảnh, nội dung thương hiệu, prompt và tin nhắn trợ lý được gửi đến Coachio API khi người dùng sử dụng chức năng AI.
 - Không commit API key, `.dev.vars` hoặc tệp bí mật vào repository.
 
 ## Build và triển khai

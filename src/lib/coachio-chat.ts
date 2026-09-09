@@ -5,8 +5,7 @@ export const CHAT_MODEL = "google/gemini-3.1-flash-lite";
 export type ChatRole = "system" | "user" | "assistant";
 
 export type ContentPart =
-  | { type: "text"; text: string }
-  | { type: "image_url"; image_url: { url: string } };
+  { type: "text"; text: string } | { type: "image_url"; image_url: { url: string } };
 
 export interface ChatMessage {
   role: ChatRole;

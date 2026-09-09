@@ -97,10 +97,13 @@ export async function testApiKey(apiKey: string): Promise<{ ok: boolean; message
     const res = await fetch(`${BASE}/task/status/__ping_${Date.now()}`, {
       headers: { "X-API-Key": apiKey },
     });
+    if (res.status === 404) {
+      return { ok: true, message: "API key hợp lệ ✓" };
+    }
     if (res.status === 401 || res.status === 403) {
       return { ok: false, message: `API key không hợp lệ (${res.status})` };
     }
-    return { ok: true, message: "API key hợp lệ ✓" };
+    return { ok: false, message: `Không thể kiểm tra API key (${res.status})` };
   } catch (e) {
     return { ok: false, message: e instanceof Error ? e.message : "Network error" };
   }
